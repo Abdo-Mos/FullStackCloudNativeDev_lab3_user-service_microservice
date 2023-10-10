@@ -70,9 +70,20 @@ def update_user(id):
 
     return jsonify({'found': user})
 
-
 # -D- delete a user
-@app.route('/user', methods=['DELETE'])
+@app.route('/user/<id>', methods=['DELETE'])
+def delete_user(id):
+    user = None
+    for usr in users:
+        if int(usr['id']) == int(id):
+            user = usr
+            break
+
+    if user == None:
+        return jsonify({'error:': 'user not found'})
+    
+    users.remove(user)
+    return jsonify("Deleted successfully")
 
 
 if __name__ == '__main__':
