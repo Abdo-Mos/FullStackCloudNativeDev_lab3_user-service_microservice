@@ -18,6 +18,7 @@ users = [
 
 @app.route('/')
 def home():
+    return jsonify(users)
     return "Hello from User Service!"
 
 # -R- read user by id Route
@@ -47,8 +48,32 @@ def create_user():
         'name': request.json['name'],
         'email': request.json['email']
     }
-    users.append(new_user) 
-    return users
+    users.append(new_user)
+    return jsonify({'user': new_user})
+
+# -U- update user
+@app.route('/user', methods=['PUT'])
+def update_user(id):
+    print("hello from update")
+    user = None
+    for usr in users:
+        # if int(usr['id']) == int(id):
+        if int(usr['id']) == request.json['id']:
+            user = usr
+            break
+
+    if user == None:
+        return jsonify({'error:': 'user not found'})
+    
+    user['name'] = request.json['name']
+    user['email'] = request.json['email']
+
+    return jsonify({'found': user})
+
+
+# -D- delete a user
+@app.route('/user', methods=['DELETE'])
+
 
 if __name__ == '__main__':
     app.run(port=5000)
