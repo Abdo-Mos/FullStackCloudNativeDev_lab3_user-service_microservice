@@ -19,8 +19,8 @@ users = [
 
 @app.route('/')
 def home():
-    return jsonify(users)
     return "Hello from User Service!"
+    return jsonify(users)
 
 # -R- read user by id Route
 @app.route('/user/<id>')
