@@ -1,6 +1,7 @@
 # user_service.py
 
 from flask import Flask, jsonify, request
+import requests
 
 app = Flask(__name__)
 
@@ -52,13 +53,13 @@ def create_user():
     return jsonify({'user': new_user})
 
 # -U- update user
-@app.route('/user', methods=['PUT'])
+@app.route('/user/<int:id>', methods=['PUT'])
 def update_user(id):
     print("hello from update")
     user = None
     for usr in users:
-        # if int(usr['id']) == int(id):
-        if int(usr['id']) == request.json['id']:
+        if int(usr['id']) == int(id):
+        # if int(usr['id']) == request.json['id']:
             user = usr
             break
 
