@@ -69,7 +69,7 @@ def update_user(id):
     user['name'] = request.json['name']
     user['email'] = request.json['email']
 
-    return jsonify({'found': user})
+    return jsonify({'updated': user})
 
 # -D- delete a user
 @app.route('/user/<id>', methods=['DELETE'])
